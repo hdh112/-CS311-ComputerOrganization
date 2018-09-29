@@ -8,6 +8,8 @@
 		.word 0:20	# reserve a block of 20 words
 	size:
 		.word 20
+	gap:
+		.byte ' '
 
 	.text		# Start of code section
 
@@ -24,10 +26,13 @@ main:
 
 printbuf:
 	slt $t0, $s0, $s1	# $t0=1 when &buf[i]<&buf[20]
-	beqz $t0, finish		# go to finish when &buf[i]>=&buf[20]
+	beqz $t0, finish	# go to finish when &buf[i]>=&buf[20]
 	lw $a0, 0($s0)		# $a0 = buf[i]
 	li $v0, 1			# load syscall(print integer) into syscall register
 	syscall				# print element
+	li $v0, 4			# load syscall(print string) into syscall register
+	la $a0, gap			# ($a0) = ' '
+	syscall				# print gap
 	addi $s0, $s0, 4	# $s0 = &buf[i++]
 	b printbuf
 
