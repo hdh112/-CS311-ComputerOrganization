@@ -17,7 +17,7 @@ main:
 	li $a2, 19			# $a2 = 19
 	jal mergesort
 
-	la $s0, buf			# $s0 = buf
+	la $s0, in_data		# $s0 = in_data (changed by mergesort)
 	lw $t0, size		# $t0 = size
 	sll $t0, $t0, 2		# $t0 = 20*4
 	add $s1, $s0, $t0	# $s1 = &buf[20]
@@ -59,7 +59,7 @@ bufcopy:
 	slt $t4, $t3, $t1		# $t4=0 if &buf[right]>=&buf[left]
 	beqz $t4, bufcopy		# go to bufcopy if &buf[right]>=&buf[left]
 
-	sll $t0, $a1, 2			# $t0 = left*4 (i*4)
+							# $t0 = left*4 (i*4)
 	add $t0, $a0, $t0		# $t0 = &A[i]
 	sll $t1, $a1, 2			# $t1 = left*4 (left_i*4)
 	add $t1, $s0, $t1		# $t1 = &buf[left_i]
