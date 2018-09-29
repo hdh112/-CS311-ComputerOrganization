@@ -19,8 +19,7 @@ main:
 
 	la $s0, buf			# $s0 = buf
 	lw $t0, size		# $t0 = size
-	sw $t1, 0($t0)		# $t1 = 20
-	sll $t0, $t1, 2		# $t0 = 20*4
+	sll $t0, $t0, 2		# $t0 = 20*4
 	add $s1, $s0, $t0	# $s1 = &buf[20]
 
 printbuf:
